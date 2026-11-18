@@ -26,3 +26,6 @@
 
 # Query Filtering Service local Range risk cache
 **/range-risk-cache.db
+
+# Shared CARGO_TARGET_DIR for the tests-magicsvm-rs suites (scripts/test-magicsvm.sh, CI)
+.magicsvm-rs-target/

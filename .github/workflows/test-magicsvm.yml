@@ -1,4 +1,4 @@
-name: Test MagicSVM
+name: Test Examples
 
 on:
   push:
@@ -12,6 +12,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Formatting is repo-wide, so it runs once rather than per-example.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.10"
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
+      - name: Check formatting
+        run: bash scripts/check-prettier.sh
+
   # Emit MagicSVM example names as JSON so the test job can fan out one runner
   # per example. Source of truth: MAGICSVM_PROJECTS in scripts/projects.sh.
   list-examples:

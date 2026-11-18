@@ -315,7 +315,7 @@ Deployed frontends for the examples that ship a UI.
 
 ## Testing
 
-Most examples test in-process with [MagicSVM](https://github.com/magicblock-labs/magicsvm): a base
+Every example tests in-process with [MagicSVM](https://github.com/magicblock-labs/magicsvm): a base
 layer and an Ephemeral Rollup in one process, no validators and no network.
 
 ```bash
@@ -329,61 +329,12 @@ Each example's suite is Rust, in `tests-magicsvm-rs/`; shared helpers are in `te
 used for program builds. To run every MagicSVM example from the repo root:
 
 ```bash
-bash scripts/test-magicsvm.sh              # all MagicSVM examples
+bash scripts/test-magicsvm.sh              # every example
 bash scripts/test-magicsvm.sh spl-tokens   # one example (substring match)
 ```
 
-### Examples that still need local nodes
-
-MagicSVM does not simulate scheduled tasks, the VRF oracle, or the private-permission flow yet, so
-`crank-counter`, `gachapon-example`, `roll-dice` (Anchor and Pinocchio), `rewards-delegated-vrf`
-and `sealed-auction` run against a local MagicBlock cluster instead:
-
-1. **Install the local nodes and the example:**
-
-   ```bash
-   npm install -g @magicblock-labs/ephemeral-validator@0.14.10
-   cd <example-directory>
-   yarn install
-   ```
-
-2. **Start the local nodes** (builds the example, boots the validators, holds them until a key press):
-
-   ```bash
-   yarn setup
-   ```
-
-3. **Run the tests against them** in a second terminal:
-
-   ```bash
-   yarn test:local
-   ```
-
-CI mirrors this split: `.github/workflows/test-magicsvm.yml` runs one MagicSVM job per example and
-`.github/workflows/test-examples.yml` runs the validator-based examples. Both matrices come from
-`scripts/projects.sh`.
-
-### Local nodes
-
-Setting up local nodes:
-
-- A Solana Test Validator preloaded with all the needed programs to work with ER.
-- A local Ephemeral Rollup.
-- The Query Filtering Service that replicates the privacy logic happening on TEE nodes, without hardware attestation.
-
-```mermaid
-graph LR
-  User((User))
-  SN["Solana Node:8899"]
-  ER["Ephemeral Rollup:7799"]
-  QFS["Query Filtering Service:6699"]
-
-  SN <--> ER
-  ER <--> QFS
-  QFS <--> User
-```
-
-Set the endpoint to the QFS if you want to test privacy features, or to the ER directly otherwise.
+CI runs the same suites: `.github/workflows/test-magicsvm.yml` checks formatting once and runs one
+MagicSVM job per example, from the list in `scripts/projects.sh`.
 
 ## Backward Compatibility
 
