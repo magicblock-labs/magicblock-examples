@@ -14,10 +14,11 @@
 # CI pick it up automatically.
 
 # Validator-based examples, grouped by the phase (validators/oracles) they need. Only the
-# examples MagicSVM cannot simulate yet stay here: scheduled tasks (crank-counter), the VRF
-# oracle (gachapon-example, roll-dice, pinocchio-roll-dice, rewards-delegated-vrf) and the
-# private-permission flow of sealed-auction (see sealed-auction/anchor/MAGICSVM_FLAWS.md).
-REGULAR_PROJECTS=(crank-counter gachapon-example)
+# examples without a MagicSVM suite yet stay here: scheduled tasks (crank-counter), the VRF
+# oracle (gachapon-example, roll-dice, pinocchio-roll-dice, rewards-delegated-vrf), the
+# private-permission flow of sealed-auction (see sealed-auction/anchor/MAGICSVM_FLAWS.md) and
+# gasless-starter.
+REGULAR_PROJECTS=(crank-counter gachapon-example gasless-starter)
 VRF_PROJECTS=(rewards-delegated-vrf roll-dice pinocchio-roll-dice)
 TEE_PROJECTS=(sealed-auction)
 
@@ -39,6 +40,7 @@ project_dir() {
     delegation-actions) echo "delegation-actions/anchor" ;;
     ephemeral-account-chats) echo "ephemeral-account-chats/anchor" ;;
     gachapon-example) echo "gachapon-example" ;;
+    gasless-starter) echo "gasless-starter/anchor" ;;
     magic-actions) echo "magic-actions/anchor" ;;
     session-keys) echo "session-keys/anchor" ;;
     spl-tokens) echo "spl-tokens/anchor" ;;

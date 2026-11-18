@@ -9,6 +9,12 @@ Read more about Ephemeral Rollups [here](https://docs.magicblock.gg/EphemeralRol
 
 > To view integrated demos for specific usecases, please look at [MagicBlock Starter Kits](https://github.com/magicblock-labs/starter-kits).
 
+> Building with an AI coding agent? Install the [MagicBlock Dev Skill](https://github.com/magicblock-labs/magicblock-dev-skill) so Claude Code, Cursor, Codex, or another agent knows the delegation, commit, VRF, and private payment patterns used in these examples:
+>
+> ```bash
+> npx skills add magicblock-labs/magicblock-dev-skill
+> ```
+
 After cloning, initialize the optional Private Payments example submodule:
 
 ```bash
@@ -277,6 +283,17 @@ End-to-end app templates you can fork and build on.
 <p><em>MagicBlock VRF gachapon demo that mints a Metaplex Core NFT reward.</em></p>
 </blockquote>
 </td>
+<td valign="top" width="33%">
+<blockquote>
+<p><strong><a href="./gasless-starter/anchor/">⛽ Gasless Starter / Anchor</a></strong></p>
+<p>
+<img src="https://img.shields.io/badge/Anchor-5243AA?style=flat-square" alt="Anchor"/>
+<img src="https://img.shields.io/badge/Payments%20API-0ea5e9?style=flat-square" alt="Payments API"/>
+</p>
+<p><em>Make your program gasless: Payments API deposits and withdrawals, free ER transactions from a 0-SOL wallet. Tip jar example.</em></p>
+<p>🌐 <a href="https://gasless-starter.vercel.app">Live demo</a></p>
+</blockquote>
+</td>
 </tr>
 </table>
 
@@ -294,6 +311,7 @@ Deployed frontends for the examples that ship a UI.
 | [Binary Prediction / Anchor](./binary-prediction/anchor/) | https://binary-prediction.magicblock.app |
 | [Rewards (Delegated VRF) / Anchor](./rewards-delegated-vrf/anchor/) | https://magicblock-rewards-dashboard.vercel.app |
 | [Rock Paper Scissor / Anchor](./rock-paper-scissor/anchor/) | https://rps-example.magicblock.app |
+| [Gasless Starter / Anchor](./gasless-starter/anchor/) | https://gasless-starter.vercel.app |
 
 ## Testing
 
@@ -324,7 +342,7 @@ and `sealed-auction` run against a local MagicBlock cluster instead:
 1. **Install the local nodes and the example:**
 
    ```bash
-   npm install -g @magicblock-labs/ephemeral-validator@latest
+   npm install -g @magicblock-labs/ephemeral-validator@0.14.10
    cd <example-directory>
    yarn install
    ```
