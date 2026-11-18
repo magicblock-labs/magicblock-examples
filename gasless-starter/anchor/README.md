@@ -217,8 +217,8 @@ whenever Solana needs to see it.
 
 ```text
 programs/tip-jar/     Anchor program
-tests/tip-jar.ts      Local ER test. The local wallet plays the sponsor; the tipper
-                      and the jar authority hold 0 SOL throughout
+tests-magicsvm-rs/    In-process MagicSVM test. The test plays the sponsor; the
+                      tipper and the jar authority hold 0 SOL throughout
 scripts/create-jar.ts One-time devnet setup
 app/                  React + Vite app
   src/lib/payments.ts   Payments API client with local rebuild check
@@ -244,22 +244,19 @@ yarn
 yarn build
 ```
 
-Start a local MagicBlock cluster (base validator, ER and Query Filtering
-Service) in one terminal and leave it running:
+Run the program test in-process with
+[MagicSVM](https://github.com/magicblock-labs/magicsvm), which simulates the
+base layer and the ER in one process (no validators, no network):
 
 ```bash
-yarn setup
+yarn test
 ```
 
-Then, in a second terminal, run the program test:
-
-```bash
-yarn test:local
-```
-
-The Payments API only runs against devnet and mainnet, so the local test does
-the sponsor's part itself: it builds the same deposit instructions with the SDK
-and pays the fee from the local wallet.
+The Payments API only runs against devnet and mainnet, so the test does the
+sponsor's part itself: it builds the same deposit instructions with the SDK and
+pays the base-layer fees from a funded sponsor. `yarn test` runs
+`cargo +stable test`: MagicSVM needs a newer Rust than the 1.89 toolchain used
+for program builds.
 
 The payment logic has its own unit tests, which need no network:
 
