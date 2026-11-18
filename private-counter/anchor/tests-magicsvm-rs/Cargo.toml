@@ -9,7 +9,7 @@ publish = false
 [dev-dependencies]
 anchor-lang = "=1.0.2"
 ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor", "access-control"] }
-magicsvm = "0.2.0"
+magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 private-counter = { path = "../programs/private-counter", features = ["no-entrypoint"] }
 solana-address = "2.6.1"

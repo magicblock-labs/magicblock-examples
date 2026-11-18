@@ -9,7 +9,7 @@ publish = false
 [dev-dependencies]
 anchor-lang = "=1.0.2"
 delegation-actions = { path = "../programs/delegation-actions", features = ["no-entrypoint"] }
-magicsvm = "0.2.0"
+magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 solana-address = "~2.6.1"
 solana-hash = "~4.5.0"

@@ -14,7 +14,7 @@ path = "tests/magicsvm.rs"
 [dev-dependencies]
 ephemeral-rollups-sdk = { version = "0.14.4", features = ["modular-sdk", "access-control"] }
 magicblock-delegation-program-api = { version = "3.0.0", default-features = false }
-magicsvm = "0.2.0"
+magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust" }
 serde_json = "1"
 solana-address = "~2.6.1"
