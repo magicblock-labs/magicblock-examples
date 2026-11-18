@@ -106,6 +106,7 @@ fn update_leaderboard_ix(
         accounts::UpdateLeaderboard {
             leaderboard,
             counter,
+            source_program: program_id(),
             escrow_auth,
             escrow,
         },

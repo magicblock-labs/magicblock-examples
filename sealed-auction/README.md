@@ -43,25 +43,20 @@ No-bid auctions can be undelegated immediately after `end_auction`, then use `re
 
 ## Run
 
-From this directory:
+From `anchor/`:
 
 ```bash
 yarn build
-yarn test:local
+yarn test
 ```
 
-`yarn test:local` runs the deterministic account-graph checks without requiring a live local stack.
-Those checks assert the auction-sponsored count-only instruction surface: no separate sponsor PDA,
-no bidder key array in auction state, `end_auction` stays on ER, and `undelegate_auction` remains the
-only commit/undelegate step. Under the repository harness, the localnet tests also verify Token A L1
-custody and that sponsor lamports are preloaded into the auction PDA during initialization.
-The full privacy and settlement walkthrough needs the standard MagicBlock local stack and QFS/TEE
-endpoints from `../../scripts/local-env.sh`:
-
-```bash
-yarn setup
-RUN_SEALED_AUCTION_LIVE=1 yarn test:local
-```
+`yarn test` runs the Rust suite in `anchor/tests-magicsvm-rs/` in-process with
+[MagicSVM](https://github.com/magicblock-labs/magicsvm), which simulates the base layer and the
+Private Ephemeral Rollup in one process. It covers Token A L1 custody and invalid-parameter
+rejections, the no-bid reclaim path, and the full private walkthrough: private bids that only the
+auctioneer and that bidder can read, settlement, refunds, undelegation, and `finalize` on L1.
+`yarn test` uses `cargo +stable`: MagicSVM needs a newer Rust than the 1.89 toolchain used for
+program builds.
 
 ## Out Of Scope
 

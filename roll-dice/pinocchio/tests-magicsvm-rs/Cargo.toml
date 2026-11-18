@@ -1,0 +1,23 @@
+[package]
+name = "pinocchio-roll-dice-magicsvm-tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+autolib = false
+
+[workspace]
+
+[[test]]
+name = "magicsvm"
+path = "tests/magicsvm.rs"
+
+[dev-dependencies]
+magicsvm = "0.3.0"
+test-utils = { path = "../../../test-utils/rust" }
+solana-address = "~2.6.1"
+solana-clock = "3"
+solana-instruction = { version = "~3.4.0", features = ["bincode"] }
+solana-keypair = "3.1.2"
+solana-native-token = "3.0.0"
+solana-signer = "3.0.1"
+

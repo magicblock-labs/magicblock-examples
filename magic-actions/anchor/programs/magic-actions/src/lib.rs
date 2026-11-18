@@ -142,6 +142,11 @@ pub struct UpdateLeaderboard<'info> {
     /// handler to the canonical counter account in either state.
     #[account(seeds = [COUNTER_SEED], bump)]
     pub counter: UncheckedAccount<'info>,
+    /// CHECK: The program that scheduled the action. Intent-bundle actions run
+    /// through DLP `CallHandlerV2`, which passes it before `escrow_auth`;
+    /// `#[action]` doesn't add it.
+    #[account(address = crate::ID)]
+    pub source_program: UncheckedAccount<'info>,
     /// CHECK: User-selected escrow authority. Leaderboard updates are
     /// permissionless; the derived escrow signer below authenticates the
     /// Magic Action call path.

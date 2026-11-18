@@ -2425,9 +2425,9 @@ dependencies = [
 
 [[package]]
 name = "magicsvm"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e3effa3b8d28f3e0a14d1b72afcf65c2bec2331882a19065ec4424cd5c7ee37"
+checksum = "ecca3d8d731e1340f15af98350b36e18e1745b8898253bb5d55e9cc7d1c9b953"
 dependencies = [
  "bincode",
  "borsh 1.8.1",
@@ -2447,6 +2447,7 @@ dependencies = [
  "solana-program-runtime",
  "solana-rent 4.3.0",
  "solana-sdk-ids 3.1.0",
+ "solana-sha256-hasher 3.1.0",
  "solana-signature 3.4.1",
  "solana-signer",
  "solana-system-interface 3.2.0",

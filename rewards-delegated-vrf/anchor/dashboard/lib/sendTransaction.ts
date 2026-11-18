@@ -193,8 +193,8 @@ export async function sendTransaction(
       err instanceof Error
         ? err.message
         : typeof err === "object"
-        ? JSON.stringify(err)
-        : String(err);
+          ? JSON.stringify(err)
+          : String(err);
     return { success: false, error };
   }
 }

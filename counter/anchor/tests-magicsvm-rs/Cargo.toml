@@ -8,7 +8,7 @@ publish = false
 
 [dev-dependencies]
 anchor-lang = "=1.0.2"
-magicsvm = "0.2.0"
+magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 public-counter = { path = "../programs/public-counter", features = ["no-entrypoint"] }
 solana-address = "~2.6.1"

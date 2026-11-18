@@ -60,26 +60,20 @@ yarn
 yarn build
 ```
 
-Run the repository-managed local tests:
+Run the Rust test suite in `tests-magicsvm-rs/` in-process with [MagicSVM](https://github.com/magicblock-labs/magicsvm):
 
 ```bash
-yarn test:local
+yarn test
 ```
 
-The default tests cover initialization, config upload, authorization, and PDA
-derivation. Live VRF and Metaplex Core tests require devnet.
+MagicSVM simulates the base layer and its VRF program in one process: no validators, no
+network. The suite initializes a machine, uploads the four weighted templates, checks that
+only the authority can upload them, and requests a pull: the pending pull is recorded, the
+pull fee tops up the treasury, and the VRF program takes the request. The `consume_pull`
+callback mints through Metaplex Core, which MagicSVM doesn't ship, so the mint is not
+covered in-process; exercise it on devnet with the frontend.
 
-After deploying to devnet, run the live request smoke test:
-
-```bash
-yarn test:devnet:smoke
-```
-
-Run the full devnet e2e cycle:
-
-```bash
-yarn test:devnet:e2e
-```
+`yarn test` runs `cargo +stable test`: MagicSVM needs a newer Rust than the 1.89 toolchain used for program builds.
 
 ## 🚀 Launch the Frontend
 

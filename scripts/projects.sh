@@ -1,32 +1,17 @@
 #!/bin/bash
 # Single source of truth for the example projects. The project name is the stable
 # CLI/CI identifier; project_dir maps that identifier to its location in the
-# use-case/framework folder layout. Every project exposes `yarn build`; MagicSVM
-# projects expose `yarn test` (in-process), validator projects `yarn test:local`.
+# use-case/framework folder layout. Every project exposes `yarn build` and `yarn test`,
+# which runs its Rust MagicSVM suite under tests-magicsvm-rs/ in-process.
 #
 # Sourced by:
-#   - scripts/test-locally.sh (full suite, runs every phase)
-#   - scripts/test-example.sh (one example per invocation — CI matrix entry point)
-#   - scripts/test-magicsvm.sh (MagicSVM projects, no validators)
-#   - the CI matrix generators (projects_json / magicsvm_projects_json)
+#   - scripts/test-magicsvm.sh (local runner)
+#   - the CI matrix generator (magicsvm_projects_json)
 #
 # Keep this list in sync when adding/removing examples; both the local runner and
 # CI pick it up automatically.
 
-# Validator-based examples, grouped by the phase (validators/oracles) they need. Only the
-# examples without a MagicSVM suite yet stay here: scheduled tasks (crank-counter), the VRF
-# oracle (gachapon-example, roll-dice, pinocchio-roll-dice, rewards-delegated-vrf), the
-# private-permission flow of sealed-auction (see sealed-auction/anchor/MAGICSVM_FLAWS.md) and
-# gasless-starter.
-REGULAR_PROJECTS=(crank-counter gachapon-example gasless-starter)
-VRF_PROJECTS=(rewards-delegated-vrf roll-dice pinocchio-roll-dice)
-TEE_PROJECTS=(sealed-auction)
-
-# Examples whose `yarn test` runs the Rust MagicSVM suite under tests-magicsvm-rs/ in-process.
-# No local cluster needed.
-MAGICSVM_PROJECTS=(anchor-counter rust-counter pinocchio-counter private-counter pinocchio-private-counter oracle-priced-purchase oncurve-delegation rock-paper-scissor ephemeral-account-chats session-keys binary-prediction magic-actions delegation-actions spl-tokens)
-
-ALL_PROJECTS=("${REGULAR_PROJECTS[@]}" "${VRF_PROJECTS[@]}" "${TEE_PROJECTS[@]}")
+MAGICSVM_PROJECTS=(anchor-counter rust-counter pinocchio-counter private-counter pinocchio-private-counter oracle-priced-purchase oncurve-delegation rock-paper-scissor ephemeral-account-chats session-keys binary-prediction magic-actions delegation-actions spl-tokens crank-counter roll-dice pinocchio-roll-dice rewards-delegated-vrf gasless-starter gachapon-example sealed-auction)
 
 # Print the directory for a stable project name, or empty if unknown.
 project_dir() {
@@ -54,25 +39,6 @@ project_dir() {
     oncurve-delegation) echo "oncurve-delegation/client" ;;
     *) echo "" ;;
   esac
-}
-
-# Print the phase (regular|vrf|tee) a project belongs to, or empty if unknown.
-project_phase() {
-  local name="$1" p
-  for p in "${REGULAR_PROJECTS[@]}"; do [ "$p" = "$name" ] && { echo regular; return; }; done
-  for p in "${VRF_PROJECTS[@]}"; do [ "$p" = "$name" ] && { echo vrf; return; }; done
-  for p in "${TEE_PROJECTS[@]}"; do [ "$p" = "$name" ] && { echo tee; return; }; done
-  echo ""
-}
-
-# Emit every project name as a compact JSON array, for the GitHub Actions matrix
-# (consumed via `fromJSON`). e.g. ["anchor-counter","crank-counter",...]
-projects_json() {
-  local out="" p
-  for p in "${ALL_PROJECTS[@]}"; do
-    out+="\"$p\","
-  done
-  echo "[${out%,}]"
 }
 
 magicsvm_projects_json() {
