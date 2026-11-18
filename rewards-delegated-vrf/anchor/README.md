@@ -34,31 +34,19 @@ yarn
 yarn build
 ```
 
-This example runs against a **local MagicBlock cluster** — a base Solana validator, an Ephemeral Rollup fronted by the Query Filtering Service, and a VRF oracle that fulfills randomness requests. Start it in one terminal and leave it running:
+Run the Rust test suite in `tests-magicsvm-rs/` in-process with [MagicSVM](https://github.com/magicblock-labs/magicsvm):
 
 ```bash
-yarn setup
+yarn test
 ```
 
-`yarn setup` runs `SETUP_ONLY=1 ./scripts/test-locally.sh rewards-delegated-vrf` from the repo root: it builds this example, boots the validators and VRF oracle, and holds them until you press a key.
+MagicSVM simulates the base layer and the Ephemeral Rollup in one process: no validators, no
+network. The suite draws rewards through VRF callbacks on the Ephemeral Rollup and on
+the base layer, pays SPL rewards until they run out, checks that only admins
+and whitelisted signers can request draws, and covers admin and whitelist
+transfers and reward updates.
 
-Then, in a second terminal, run this example's tests against that cluster:
-
-```bash
-yarn test:local
-```
-
-`test:local` sources `scripts/local-env.sh` so the SDK targets the local cluster (without it the tests fall back to devnet).
-
-> Tip: to build and run **every** example end-to-end (what CI does), run the repo-root `./scripts/test-locally.sh` directly.
-
-## Stress Test
-
-To exercise repeated VRF requests, run the stress test (requests a random reward 100 times):
-
-```bash
-yarn test:stress
-```
+`yarn test` runs `cargo +stable test`: MagicSVM needs a newer Rust than the 1.89 toolchain used for program builds.
 
 ## Notes
 
