@@ -299,7 +299,8 @@ End-to-end app templates you can fork and build on.
 
 ## 🌐 Live Demos
 
-Deployed frontends for the examples that ship a UI.
+Deployed frontends for the examples that ship a UI. See [DEMOS.md](./DEMOS.md) for a recorded
+walkthrough of each one.
 
 | Example | Live demo |
 | ------- | --------- |
