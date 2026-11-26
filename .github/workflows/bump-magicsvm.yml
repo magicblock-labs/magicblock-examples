@@ -1,0 +1,74 @@
+name: Bump magicsvm
+
+# Opens a PR that moves every non-legacy example to a new magicsvm release.
+# magicsvm's release workflow sends a `magicsvm-release` repository_dispatch with
+# `{"version": "x.y.z"}`; it can also be run by hand from the Actions tab.
+on:
+  repository_dispatch:
+    types: [magicsvm-release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: magicsvm version, e.g. 0.3.1
+        required: true
+      dry_run:
+        description: Show the diff without opening a PR
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: bump-magicsvm
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ github.event.client_payload.version || inputs.version }}
+      DRY_RUN: ${{ inputs.dry_run || false }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate version
+        run: |
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Not a release version: '$VERSION'" >&2
+            exit 1
+          fi
+          echo "BRANCH=bot/bump-magicsvm-$VERSION" >> "$GITHUB_ENV"
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Update manifests and lockfiles
+        run: bash scripts/update-magicsvm-version.sh "$VERSION"
+
+      - name: Show diff
+        run: git diff --stat
+
+      - name: Open PR
+        if: env.DRY_RUN != 'true'
+        run: |
+          if git diff --quiet; then
+            echo "Examples already use magicsvm $VERSION"
+            exit 0
+          fi
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            echo "$BRANCH already exists; close or merge its PR first" >&2
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git commit -qam "chore: bump magicsvm to $VERSION"
+          git push -q origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "chore: bump magicsvm to $VERSION" \
+            --body "Bump magicsvm to $VERSION in every non-legacy example."
+          # PRs opened with GITHUB_TOKEN don't fire pull_request workflows, so start the tests here.
+          gh workflow run test-magicsvm.yml --ref "$BRANCH"
