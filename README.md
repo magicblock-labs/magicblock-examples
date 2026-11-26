@@ -336,6 +336,14 @@ bash scripts/test-magicsvm.sh spl-tokens   # one example (substring match)
 CI runs the same suites: `.github/workflows/test-magicsvm.yml` checks formatting once and runs one
 MagicSVM job per example, from the list in `scripts/projects.sh`.
 
+## SDK Version
+
+Every active example pins the same SDK version, recorded in [`SDK_VERSION`](./SDK_VERSION). This
+covers the `ephemeral-rollups-sdk` and `ephemeral-rollups-pinocchio` crates and the
+`@magicblock-labs/ephemeral-rollups-sdk` and `-kit` packages. `bash scripts/check-sdk-versions.sh`
+lists every pin that differs. `bash scripts/update-sdk-versions.sh [version]` updates `SDK_VERSION` and
+rewrites the pins and lockfiles. `00-LEGACY_EXAMPLES/` keeps its own pins.
+
 ## Backward Compatibility
 
 Older pre-Anchor 1.0 versions of the migrated programs are kept in
