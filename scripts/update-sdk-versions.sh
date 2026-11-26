@@ -4,7 +4,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
-VERSION="0.14.3"
+# Target version: the argument if given (and saved to SDK_VERSION), else SDK_VERSION.
+# 00-LEGACY_EXAMPLES/ keeps its own pins and is never touched.
+if [ -n "${1:-}" ]; then
+  printf '%s\n' "$1" > SDK_VERSION
+fi
+VERSION="$(tr -d '[:space:]' < SDK_VERSION)"
 PACKAGES=("ephemeral-rollups-sdk" "ephemeral-rollups-kit" "ephemeral-rollups-pinocchio")
 MIN_NODE_VERSION="20.19.0"
 
@@ -27,6 +32,10 @@ require_node_version() {
   echo "Node $current (>= $required required) ✓"
 }
 require_node_version "$MIN_NODE_VERSION"
+
+sed_inplace() {
+  sed -i.sedbak "$@" && rm -f "${@: -1}.sedbak"
+}
 
 # Report tracking arrays
 UPDATED_FILES=()
@@ -54,13 +63,13 @@ for package in "${PACKAGES[@]}"; do
       # Create backup for diff
       cp "$file" "$TEMP_DIR/$(basename $file).bak"
 
-      sed -i '' "s/\"@magicblock-labs\/$package\": \"[^\"]*\"/\"@magicblock-labs\/$package\": \"$VERSION\"/g" "$file"
-      sed -i '' "s/\"$package\": \"[^\"]*\"/\"$package\": \"$VERSION\"/g" "$file"
+      sed_inplace "s/\"@magicblock-labs\/$package\": \"[^\"]*\"/\"@magicblock-labs\/$package\": \"$VERSION\"/g" "$file"
+      sed_inplace "s/\"$package\": \"[^\"]*\"/\"$package\": \"$VERSION\"/g" "$file"
 
       echo "  ✓ $file"
       UPDATED_FILES+=("$file")
     fi
-  done < <(find . -name "package.json" -type f -not -path "*/node_modules/*" -not -path "*/private-payments/*")
+  done < <(find . -name "package.json" -type f -not -path "*/node_modules/*" -not -path "*/private-payments/*" -not -path "./00-LEGACY_EXAMPLES/*")
 done
 
 # Update Cargo.toml files
@@ -71,13 +80,13 @@ for package in "${PACKAGES[@]}"; do
       # Create backup for diff
       cp "$file" "$TEMP_DIR/$(basename $file).bak"
 
-      sed -i '' "s/$package = { version = \"[^\"]*\"/$package = { version = \"$VERSION\"/g" "$file"
-      sed -i '' "s/$package = \"[^\"]*\"/$package = \"$VERSION\"/g" "$file"
+      sed_inplace "s/$package = { version = \"[^\"]*\"/$package = { version = \"$VERSION\"/g" "$file"
+      sed_inplace "s/$package = \"[^\"]*\"/$package = \"$VERSION\"/g" "$file"
 
       echo "  ✓ $file"
       UPDATED_FILES+=("$file")
     fi
-  done < <(find . -name "Cargo.toml" -type f -not -path "*/private-payments/*")
+  done < <(find . -name "Cargo.toml" -type f -not -path "*/private-payments/*" -not -path "./00-LEGACY_EXAMPLES/*")
 done
 
 # Update yarn.lock files
@@ -92,7 +101,7 @@ while read -r file; do
       YARN_ERRORS+=("$dir")
     fi
   fi
-done < <(find . -name "package.json" -type f -not -path "*/node_modules/*")
+done < <(find . -name "package.json" -type f -not -path "*/node_modules/*" -not -path "./00-LEGACY_EXAMPLES/*")
 
 # Regenerate Cargo.lock files
 echo "Regenerating Cargo.lock files..."
@@ -100,11 +109,7 @@ while read -r file; do
   dir=$(dirname "$file")
   if [ -f "$dir/Cargo.lock" ]; then
     if [ -f "$dir/Anchor.toml" ]; then
-      if [[ "$dir" == *"00-LEGACY_EXAMPLES"* ]]; then
-        build_cmd="anchor build"
-      else
-        build_cmd="anchor build --ignore-keys"
-      fi
+      build_cmd="anchor build --ignore-keys"
     else
       build_cmd="cargo build-sbf"
     fi
@@ -115,7 +120,7 @@ while read -r file; do
       CARGO_ERRORS+=("$dir")
     fi
   fi
-done < <(find . -name "Cargo.toml" -type f)
+done < <(find . -name "Cargo.toml" -type f -not -path "./00-LEGACY_EXAMPLES/*")
 
 # Generate summary report
 echo ""
