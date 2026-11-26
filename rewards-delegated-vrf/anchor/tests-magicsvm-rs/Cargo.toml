@@ -10,7 +10,7 @@ publish = false
 anchor-lang = "=1.0.2"
 anchor-spl = { version = "=1.0.2", features = ["metadata", "associated_token"] }
 ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor"] }
-magicsvm = "0.3.0"
+magicsvm = "0.3.1"
 rewards-delegated-vrf = { path = "../programs/rewards-delegated-vrf", features = ["no-entrypoint"] }
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 solana-account = "4.3.1"

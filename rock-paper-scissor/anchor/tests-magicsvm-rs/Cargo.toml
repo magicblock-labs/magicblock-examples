@@ -10,7 +10,7 @@ publish = false
 anchor-lang = "=1.0.2"
 anchor-rock-paper-scissor = { path = "../programs/anchor-rock-paper-scissor", features = ["no-entrypoint"] }
 ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor", "access-control"] }
-magicsvm = "0.3.0"
+magicsvm = "0.3.1"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 solana-address = "~2.6.1"
 solana-hash = "~4.5.0"
