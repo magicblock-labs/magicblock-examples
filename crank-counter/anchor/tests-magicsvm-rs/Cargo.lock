@@ -249,7 +249,7 @@ dependencies = [
  "anchor-derive-serde",
  "anchor-derive-space",
  "base64 0.21.7",
- "bincode 1.3.3",
+ "bincode",
  "borsh 1.8.1",
  "bytemuck",
  "const-crypto",
@@ -644,25 +644,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bincode"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36eaf5d7b090263e8150820482d5d93cd964a81e4019913c972f4edcc6edb740"
-dependencies = [
- "bincode_derive",
- "unty",
-]
-
-[[package]]
-name = "bincode_derive"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf95709a440f45e986983918d0e8a1f30a9b1df04918fc828670606804ac3c09"
-dependencies = [
- "virtue",
-]
-
-[[package]]
 name = "bitflags"
 version = "2.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1051,7 +1032,7 @@ name = "crank-counter"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
- "ephemeral-rollups-sdk 0.16.0",
+ "ephemeral-rollups-sdk 0.18.0",
 ]
 
 [[package]]
@@ -1467,26 +1448,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "ephemeral-rollups-pinocchio"
-version = "0.15.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a09b61c47e5b4eeb7add34e9d43d836784a66d78fa704606bebaa453bef73e21"
-dependencies = [
- "bincode 2.0.1",
- "pinocchio 0.10.2",
- "pinocchio-pubkey",
- "pinocchio-system",
- "solana-address 2.6.1",
-]
-
-[[package]]
 name = "ephemeral-rollups-sdk"
 version = "0.14.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "838564736408ada011e9986c819b26cf0195bb2dd238e10be258731979213d75"
 dependencies = [
  "base64ct",
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "ephemeral-rollups-sdk-attribute-action 0.14.4",
  "ephemeral-rollups-sdk-attribute-commit 0.14.4",
@@ -1519,52 +1487,23 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6fa1068e90902aea1ae93efe9769034112ed947975c7688e9f2bc3c7a149ac8"
 dependencies = [
  "anchor-lang",
  "base64ct",
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
- "ephemeral-rollups-sdk-attribute-action 0.16.0",
- "ephemeral-rollups-sdk-attribute-commit 0.16.0",
- "ephemeral-rollups-sdk-attribute-delegate 0.16.0",
- "ephemeral-rollups-sdk-attribute-ephemeral 0.16.0",
- "ephemeral-rollups-sdk-attribute-ephemeral-accounts 0.16.0",
+ "ephemeral-rollups-sdk-attribute-action 0.18.0",
+ "ephemeral-rollups-sdk-attribute-commit 0.18.0",
+ "ephemeral-rollups-sdk-attribute-delegate 0.18.0",
+ "ephemeral-rollups-sdk-attribute-ephemeral 0.18.0",
+ "ephemeral-rollups-sdk-attribute-ephemeral-accounts 0.18.0",
  "ephemeral-vrf-sdk",
- "ephemeral-vrf-sdk-vrf-macro",
  "five8 0.2.1",
  "getrandom 0.2.17",
  "hydra-api",
- "magicblock-delegation-program-api",
- "magicblock-magic-program-api 0.10.1",
- "solana-account-info 2.3.0",
- "solana-address 2.6.1",
- "solana-program 2.3.0",
- "solana-program 3.0.0",
- "solana-program-error 2.2.2",
- "solana-system-interface 2.0.0",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk"
-version = "0.16.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a267fd1fe36f82ed50307b3757561ac59b1629a523fd179e2a66f4383c9afc0a"
-dependencies = [
- "anchor-lang",
- "base64ct",
- "bincode 1.3.3",
- "bytemuck",
- "ephemeral-rollups-sdk-attribute-action 0.16.2",
- "ephemeral-rollups-sdk-attribute-commit 0.16.2",
- "ephemeral-rollups-sdk-attribute-delegate 0.16.2",
- "ephemeral-rollups-sdk-attribute-ephemeral 0.16.2",
- "ephemeral-rollups-sdk-attribute-ephemeral-accounts 0.16.2",
- "ephemeral-vrf-sdk",
- "ephemeral-vrf-sdk-vrf-macro",
- "five8 0.2.1",
- "getrandom 0.2.17",
  "magicblock-delegation-program-api",
  "magicblock-magic-program-api 0.10.1",
  "solana-account-info 2.3.0",
@@ -1587,18 +1526,9 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk-attribute-action"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
-dependencies = [
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk-attribute-action"
-version = "0.16.2"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a3847b70bac1717bfd3108fe310195e658665b2d971bcb4eb2aa5aaca2c9392"
+checksum = "74477976c11a249a4065129837dc8fad4a8ccecc2577f17586014da242c3e539"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -1617,19 +1547,9 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk-attribute-commit"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk-attribute-commit"
-version = "0.16.2"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b08e06840701468449f75916e922fd9694b787596efe66cd9b8dccf3ef0eb5e6"
+checksum = "1f784580710b8372a570a5e11c5aaa2028a1a6e0810b07fce52129441cd5d62c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1649,19 +1569,9 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk-attribute-delegate"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk-attribute-delegate"
-version = "0.16.2"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc365676345c77eed3651debb63af9b282902100e5852a1822ee1385e3b285fe"
+checksum = "b9c17d6a98188cf7dad726c7293da1c1617ddb799f91d9de427382ad64d5b486"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1681,19 +1591,9 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk-attribute-ephemeral"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk-attribute-ephemeral"
-version = "0.16.2"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fce2590d04b16345a3117c0b66b6822a96a5ef3bc7b9add073cb3a797529d8df"
+checksum = "425faf8211f796f941ac7de71b5153c87265be76621e989ad706d66fd1633fd0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1713,19 +1613,9 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-rollups-sdk-attribute-ephemeral-accounts"
-version = "0.16.0"
-source = "git+https://github.com/magicblock-labs/ephemeral-rollups-sdk.git?rev=0fc4604157de51df28693e02e5a1a6a4a08c8a03#0fc4604157de51df28693e02e5a1a6a4a08c8a03"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ephemeral-rollups-sdk-attribute-ephemeral-accounts"
-version = "0.16.2"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f70d4bbf6761a71df97fbadcb4cceef630e2d6e37189f5e674ff34bb2210823"
+checksum = "bc0fe4e98f42ce15182908bcbbfbbf4f31fe9d22df84bb401eca2c1f728ac2ea"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1734,22 +1624,23 @@ dependencies = [
 
 [[package]]
 name = "ephemeral-vrf-sdk"
-version = "0.4.1"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77f3741c733907c10e0d0b32f9aa485c20a73e0b1e7e673a0ac38185fb2a6c11"
+checksum = "4ffb2c4e3eacbd8047b6cc13a5a235966ea4fd5575cf198477fda8024dc69f1e"
 dependencies = [
  "anchor-lang",
  "borsh 1.8.1",
+ "const-crypto",
  "ephemeral-vrf-sdk-vrf-macro",
  "solana-program 3.0.0",
- "solana-system-interface 3.2.0",
+ "solana-system-interface 2.0.0",
 ]
 
 [[package]]
 name = "ephemeral-vrf-sdk-vrf-macro"
-version = "0.4.1"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7b8b3fe3863a27d4c0f32da7b3cfeff179772fd4124d6c9fdcb9d4ab23cd602"
+checksum = "e39a1836f6120dbe0c4b53e0b519d852943128c7bd0c27d769bc22837a3ea67a"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2131,11 +2022,11 @@ dependencies = [
 
 [[package]]
 name = "hydra-api"
-version = "0.1.1"
-source = "git+https://github.com/magicblock-labs/hydra.git?rev=4f9e3c44e9e2e4feab66e6e7903099e095c74db3#4f9e3c44e9e2e4feab66e6e7903099e095c74db3"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ef11a032e92081f7779567bc67d0d57ab47087349618e06fe4e78a2a49e65cb"
 dependencies = [
- "ephemeral-rollups-pinocchio",
- "pinocchio 0.10.2",
+ "pinocchio 0.11.2",
  "solana-account-info 3.1.1",
  "solana-address 2.6.1",
  "solana-cpi 3.1.0",
@@ -2490,7 +2381,7 @@ version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bea16e41e04319201919afca98dd4241b18549f2db0c68f58e4bc531537b5dab"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "borsh 0.10.4",
  "borsh 1.8.1",
  "bytemuck",
@@ -2589,7 +2480,7 @@ version = "0.8.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "291f7a68f6cc622741a3fae513bd71640911abefd1fae2b2602b934515ed4b95"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "const-crypto",
  "serde",
  "solana-program 2.3.0",
@@ -2602,7 +2493,7 @@ version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1dc8fba0307c90b91b70c9ed06d4242d6c4159f331b2f05bf8f875c2a94e0e98"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "const-crypto",
  "serde",
  "solana-program 3.0.0",
@@ -2615,7 +2506,7 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ecca3d8d731e1340f15af98350b36e18e1745b8898253bb5d55e9cc7d1c9b953"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "borsh 1.8.1",
  "ephemeral-rollups-sdk 0.14.4",
  "magicblock-account",
@@ -2925,10 +2816,23 @@ version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c06810dac15a4ef83d3dabdb4f2f22fb39c9adff669cd2781da4f716510a647c"
 dependencies = [
- "solana-account-view",
+ "solana-account-view 1.0.0",
  "solana-address 2.6.1",
  "solana-define-syscall 4.0.1",
- "solana-instruction-view",
+ "solana-instruction-view 1.0.0",
+ "solana-program-error 3.0.1",
+]
+
+[[package]]
+name = "pinocchio"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6cababcb62a2e739c7078ae16eda02789a6e3edd21bbdded864e85c38a7914d"
+dependencies = [
+ "solana-account-view 2.0.0",
+ "solana-address 2.6.1",
+ "solana-define-syscall 5.4.0",
+ "solana-instruction-view 2.1.0",
  "solana-program-error 3.0.1",
 ]
 
@@ -3633,7 +3537,7 @@ version = "3.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "efc0ed36decb689413b9da5d57f2be49eea5bebb3cf7897015167b0c4336e731"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "serde_bytes",
  "serde_derive",
@@ -3651,7 +3555,7 @@ version = "4.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "26788ba0d7eb5b250edda3e1d393739bafd5daf94882f2261d14f5ab0d6a25e0"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "qualifier_attr",
  "serde",
  "serde_bytes",
@@ -3670,7 +3574,7 @@ version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8f5152a288ef1912300fc6efa6c2d1f9bb55d9398eb6c72326360b8063987da"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "solana-program-error 2.2.2",
  "solana-program-memory 2.3.1",
@@ -3683,7 +3587,7 @@ version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9cf16495d9eb53e3d04e72366a33bb1c20c24e78c171d8b8f5978357b63ae95"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde_core",
  "solana-address 2.6.1",
  "solana-program-error 3.0.1",
@@ -3695,6 +3599,16 @@ name = "solana-account-view"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f37ca34c37f92ee341b73d5ce7c8ef5bb38e9a87955b4bd343c63fa18b149215"
+dependencies = [
+ "solana-address 2.6.1",
+ "solana-program-error 3.0.1",
+]
+
+[[package]]
+name = "solana-account-view"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc141b940560430425ebaadb7645496c45f6a10fad9911d719bd03eab7f4d422"
 dependencies = [
  "solana-address 2.6.1",
  "solana-program-error 3.0.1",
@@ -3739,7 +3653,7 @@ version = "2.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d1673f67efe870b64a65cb39e6194be5b26527691ce5922909939961a6e6b395"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "serde",
  "serde_derive",
@@ -3756,7 +3670,7 @@ version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "115b4f773acc4f3f3cb986b0d335e9845c0368c82b0940410935bc11ae065578"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "serde",
  "serde_derive",
@@ -3814,7 +3728,7 @@ version = "2.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19a3787b8cf9c9fe3dd360800e8b70982b9e5a8af9e11c354b6665dd4a003adc"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "solana-instruction 2.3.3",
 ]
@@ -3825,7 +3739,7 @@ version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "278a1a5bad62cd9da89ac8d4b7ec444e83caa8ae96aa656dfc27684b28d49a5d"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde_core",
  "solana-instruction-error",
 ]
@@ -3928,7 +3842,7 @@ version = "4.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fabcc3a5785886f026b438771bf6b221b0d4877f6089af79d432c7fe877a6cd4"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "qualifier_attr",
  "solana-account 4.3.2",
  "solana-bincode 3.1.0",
@@ -4281,7 +4195,7 @@ version = "2.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43f5c5382b449e8e4e3016fb05e418c53d57782d8b5c30aa372fc265654b956d"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "serde_derive",
  "solana-account 2.2.1",
@@ -4311,7 +4225,7 @@ version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bd7545e02f91da1d6996f32b18f7796aa01e0682f8f3a7434b82cd1a10448add"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "serde_derive",
  "solana-account 4.3.2",
@@ -4451,7 +4365,7 @@ version = "2.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bab5682934bd1f65f8d2c16f21cb532526fcc1a09f796e2cacdb091eee5774ad"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "borsh 1.8.1",
  "getrandom 0.2.17",
  "js-sys",
@@ -4470,7 +4384,7 @@ version = "3.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a3957ca1d31107efd9a6bb88b25c348ca5e3b4b6683e3d08adb86d3d17aa01f1"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "borsh 1.8.1",
  "serde",
  "serde_derive",
@@ -4498,9 +4412,21 @@ version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60147e4d0a4620013df40bf30a86dd299203ff12fcb8b593cd51014fce0875d8"
 dependencies = [
- "solana-account-view",
+ "solana-account-view 1.0.0",
  "solana-address 2.6.1",
  "solana-define-syscall 4.0.1",
+ "solana-program-error 3.0.1",
+]
+
+[[package]]
+name = "solana-instruction-view"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6ab7a27d0c4214b9f7389c3dd00b68c93093a67f1dcc5b7893aebe299bbcbb47"
+dependencies = [
+ "solana-account-view 2.0.0",
+ "solana-address 2.6.1",
+ "solana-define-syscall 5.4.0",
  "solana-program-error 3.0.1",
 ]
 
@@ -4742,7 +4668,7 @@ version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1796aabce376ff74bf89b78d268fa5e683d7d7a96a0a4e4813ec34de49d5314b"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "blake3",
  "lazy_static",
  "serde",
@@ -4765,7 +4691,7 @@ version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0448b1fd891c5f46491e5dc7d9986385ba3c852c340db2911dd29faa01d2b08d"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "blake3",
  "lazy_static",
  "serde",
@@ -4943,7 +4869,7 @@ version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98eca145bd3545e2fbb07166e895370576e47a00a7d824e325390d33bf467210"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "blake3",
  "borsh 0.10.4",
  "borsh 1.8.1",
@@ -5170,7 +5096,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2b7281bd4a6072c7e11b611f771f4e61be1d45ea0d2aecfbb77d02d1b5877d4"
 dependencies = [
  "base64 0.22.1",
- "bincode 1.3.3",
+ "bincode",
  "cfg-if",
  "itertools 0.14.0",
  "log",
@@ -5354,7 +5280,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f03df7969f5e723ad31b6c9eadccc209037ac4caa34d8dc259316b05c11e82b"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "bs58",
  "serde",
  "solana-account 3.4.0",
@@ -5845,7 +5771,7 @@ version = "4.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d31c37dc2425afc13ddb2fc8365db8dbd02ac860a454c25b3897831036a64dd8"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "libsecp256k1 0.7.2",
  "num-traits",
  "solana-account 4.3.2",
@@ -5934,7 +5860,7 @@ version = "4.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2610e0b091b920da610ad3e5ba850530702f5ac911b4e9dc5ab9a025a772138a"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "log",
  "solana-account 4.3.2",
  "solana-bincode 3.1.0",
@@ -5959,7 +5885,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8c3595f95069f3d90f275bb9bd235a1973c4d059028b0a7f81baca2703815db"
 dependencies = [
  "base64 0.22.1",
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "bytemuck_derive",
  "lazy_static",
@@ -5996,7 +5922,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6690d3dd88f15c21edff68eb391ef8800df7a1f5cec84ee3e8d1abf05affdf74"
 dependencies = [
  "base64 0.22.1",
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "bytemuck_derive",
  "lazy_static",
@@ -6030,7 +5956,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ada7045bbfdd802af08fbc9c7e2b56ddabb20599d22e4c3840fcef5e7afb8324"
 dependencies = [
  "base64 0.22.1",
- "bincode 1.3.3",
+ "bincode",
  "lazy_static",
  "serde",
  "serde_derive",
@@ -6090,7 +6016,7 @@ version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "96697cff5075a028265324255efed226099f6d761ca67342b230d09f72cc48d2"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "serde",
  "serde_derive",
  "solana-address 2.6.1",
@@ -6132,7 +6058,7 @@ version = "4.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "64d61811155533aebcf806e694d3ed91be7fc168dc9bdcf25e8eb98b9234c7c3"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "qualifier_attr",
  "serde",
  "solana-account 4.3.2",
@@ -6172,7 +6098,7 @@ version = "2.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b80d57478d6599d30acc31cc5ae7f93ec2361a06aefe8ea79bc81739a08af4c3"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "num-derive",
  "num-traits",
  "serde",
@@ -6196,7 +6122,7 @@ version = "6.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13a7a204b455a53fe8c9a26a6885391a5896835e06694dbe0cf37c580f82f128"
 dependencies = [
- "bincode 1.3.3",
+ "bincode",
  "cfg_eval",
  "num-derive",
  "num-traits",
@@ -6223,7 +6149,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69c6faf8370369c45bc14eeca8dc0249450b940b57dcfcec0103403f9feaf88a"
 dependencies = [
  "agave-feature-set",
- "bincode 1.3.3",
+ "bincode",
  "log",
  "solana-account 4.3.2",
  "solana-bincode 3.1.0",
@@ -6265,7 +6191,7 @@ checksum = "09670ff59f60e6ddc2209c2e4353992a9b9f01d4e244f3e9d67bd5146e33d388"
 dependencies = [
  "aes-gcm-siv",
  "base64 0.22.1",
- "bincode 1.3.3",
+ "bincode",
  "bytemuck",
  "bytemuck_derive",
  "curve25519-dalek",
@@ -6424,7 +6350,7 @@ name = "test-utils"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
- "ephemeral-rollups-sdk 0.16.2",
+ "ephemeral-rollups-sdk 0.18.0",
  "magicsvm",
  "serde_json",
  "solana-address 2.6.1",
@@ -6574,12 +6500,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "unty"
-version = "0.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d49784317cd0d1ee7ec5c716dd598ec5b4483ea832a2dced265471cc0f690ae"
-
-[[package]]
 name = "ureq"
 version = "3.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6641,12 +6561,6 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
-
-[[package]]
-name = "virtue"
-version = "0.0.18"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "051eb1abcf10076295e815102942cc58f9d5e3b4560e46e53c21e8ff6f3af7b1"
 
 [[package]]
 name = "void"

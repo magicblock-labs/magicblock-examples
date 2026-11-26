@@ -169,15 +169,15 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz#b21affb804cc167c133d95f45b3a1dc1323b9a87"
   integrity sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==
 
-"@magicblock-labs/ephemeral-rollups-sdk@0.16.2":
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/@magicblock-labs/ephemeral-rollups-sdk/-/ephemeral-rollups-sdk-0.16.2.tgz#d9ec087aad33a2ddde55756328e4bad7ae31df06"
-  integrity sha512-rXeIlGjwCrgfKwJ/vU4A7rLd1aYJoo05c+GkhJmH/B08WYCpDL6Kabo3lztsJ/tiaFaeLCZc0/8FgKrFBd1mZQ==
+"@magicblock-labs/ephemeral-rollups-sdk@0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@magicblock-labs/ephemeral-rollups-sdk/-/ephemeral-rollups-sdk-0.18.0.tgz#a68aa970b1c434e4bb47af9f6406e7d791dbe3a7"
+  integrity sha512-21X7x5RV/QsAKkRmJ0PwGBYINvHsadSVqZASGycu57XRbNOxZiEEE7qufKIL9vitxkoK3uYoHMF031ddqYUw6Q==
   dependencies:
     "@noble/curves" "^1.4.2"
     "@noble/hashes" "^1.4.0"
     "@phala/dcap-qvl" "^0.3.9"
-    "@solana/web3.js" "^1.98.0"
+    "@solana/web3.js" "^1.99.0"
     bs58 "^6.0.0"
     rpc-websockets "^9.0.4"
     tweetnacl "^1.0.3"
@@ -363,7 +363,7 @@
     "@solana/spl-token-metadata" "^0.1.6"
     buffer "^6.0.3"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.69.0", "@solana/web3.js@^1.98.0":
+"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.69.0", "@solana/web3.js@^1.99.0":
   version "1.99.0"
   resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.99.0.tgz#864ce3fefe03b258c430e31e6672b422426821f7"
   integrity sha512-QZYQ2T1z6xWisoyALPq25i/QZTsRlM02BABtAsfaQ1p8wX4SdTfxrKTRue/ZZqrhNVh5oL7T/DUFiTS9DRgxow==

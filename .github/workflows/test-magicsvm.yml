@@ -12,11 +12,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Formatting is repo-wide, so it runs once rather than per-example.
+  # SDK version and formatting checks are repo-wide, so they run once rather than per-example.
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check SDK versions
+        run: bash scripts/check-sdk-versions.sh
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

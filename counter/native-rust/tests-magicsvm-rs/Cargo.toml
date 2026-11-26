@@ -12,7 +12,7 @@ name = "magicsvm"
 path = "tests/magicsvm.rs"
 
 [dev-dependencies]
-ephemeral-rollups-sdk = { version = "0.14.4", features = ["modular-sdk"] }
+ephemeral-rollups-sdk = { version = "0.18.0", features = ["modular-sdk"] }
 magicblock-delegation-program-api = { version = "3.0.0", default-features = false }
 magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust" }

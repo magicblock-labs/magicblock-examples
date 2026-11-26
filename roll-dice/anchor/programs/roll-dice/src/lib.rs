@@ -3,7 +3,8 @@ use ephemeral_rollups_sdk::{
     anchor::{vrf, vrf_callback},
     vrf::{
         self,
-        instructions::{create_request_scoped_randomness_ix, RequestRandomnessParams},
+        consts::program_identity_pubkey,
+        instructions::{create_request_randomness_ix_const, RequestRandomnessParams},
         types::SerializableAccountMeta,
     }
 };
@@ -11,6 +12,9 @@ use ephemeral_rollups_sdk::{
 declare_id!("3iSNV84a4hp2AiZpczjeuJEy4PTVCSzZZyU533MR6tEU");
 
 pub const PLAYER: &[u8] = b"playerd";
+
+/// This program's VRF identity PDA, derived at compile time.
+const PROGRAM_IDENTITY: Pubkey = program_identity_pubkey(&ID);
 
 #[program]
 pub mod random_dice {
@@ -29,21 +33,24 @@ pub mod random_dice {
 
     pub fn roll_dice(ctx: Context<DoRollDiceCtx>, client_seed: u8) -> Result<()> {
         msg!("Requesting randomness with client_seed={}", client_seed);
-        let ix = create_request_scoped_randomness_ix(RequestRandomnessParams {
-            payer: ctx.accounts.payer.key(),
-            oracle_queue: ctx.accounts.oracle_queue.key(),
-            callback_program_id: ID,
-            callback_discriminator: instruction::CallbackRollDice::DISCRIMINATOR.to_vec(),
-            caller_seed: [client_seed; 32],
-            // Specify any account that is required by the callback
-            accounts_metas: Some(vec![SerializableAccountMeta {
-                pubkey: ctx.accounts.player.key(),
-                is_signer: false,
-                is_writable: true,
-            }]),
-            callback_args: Some(vec![client_seed]),
-            ..Default::default()
-        });
+        let ix = create_request_randomness_ix_const(
+            RequestRandomnessParams {
+                payer: ctx.accounts.payer.key(),
+                oracle_queue: ctx.accounts.oracle_queue.key(),
+                callback_program_id: ID,
+                callback_discriminator: instruction::CallbackRollDice::DISCRIMINATOR.to_vec(),
+                caller_seed: [client_seed; 32],
+                // Specify any account that is required by the callback
+                accounts_metas: Some(vec![SerializableAccountMeta {
+                    pubkey: ctx.accounts.player.key(),
+                    is_signer: false,
+                    is_writable: true,
+                }]),
+                callback_args: Some(vec![client_seed]),
+                ..Default::default()
+            },
+            PROGRAM_IDENTITY,
+        );
         ctx.accounts
             .invoke_signed_vrf(&ctx.accounts.payer.to_account_info(), &ix)?;
         Ok(())

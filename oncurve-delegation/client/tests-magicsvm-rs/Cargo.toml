@@ -11,7 +11,7 @@ borsh = "1.6.1"
 dlp_api = { package = "magicblock-delegation-program-api", version = "3.0.0", default-features = false, features = [
     "instruction",
 ] }
-ephemeral-rollups-sdk = { version = "0.14.4", default-features = false }
+ephemeral-rollups-sdk = { version = "0.18.0" }
 magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust" }
 solana-address = "~2.6.1"

@@ -491,15 +491,15 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@magicblock-labs/ephemeral-rollups-sdk@0.17.3":
-  version "0.17.3"
-  resolved "https://registry.yarnpkg.com/@magicblock-labs/ephemeral-rollups-sdk/-/ephemeral-rollups-sdk-0.17.3.tgz#f028fb9d652507de6071a936343a9d84f22adabc"
-  integrity sha512-KR7wZmAM71U+MzaLna9LGZc0HDR1R54LZJ8FSfeTMiop/L4NTsGUVxhAY+IslzzW73iybkJsdWs2o/YBbCaRaw==
+"@magicblock-labs/ephemeral-rollups-sdk@0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@magicblock-labs/ephemeral-rollups-sdk/-/ephemeral-rollups-sdk-0.18.0.tgz#a68aa970b1c434e4bb47af9f6406e7d791dbe3a7"
+  integrity sha512-21X7x5RV/QsAKkRmJ0PwGBYINvHsadSVqZASGycu57XRbNOxZiEEE7qufKIL9vitxkoK3uYoHMF031ddqYUw6Q==
   dependencies:
     "@noble/curves" "^1.4.2"
     "@noble/hashes" "^1.4.0"
     "@phala/dcap-qvl" "^0.3.9"
-    "@solana/web3.js" "^1.98.0"
+    "@solana/web3.js" "^1.99.0"
     bs58 "^6.0.0"
     rpc-websockets "^9.0.4"
     tweetnacl "^1.0.3"
@@ -825,7 +825,7 @@
     "@solana/spl-token-metadata" "^0.1.6"
     buffer "^6.0.3"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.69.0", "@solana/web3.js@^1.98.0", "@solana/web3.js@^1.98.4":
+"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.69.0", "@solana/web3.js@^1.98.4", "@solana/web3.js@^1.99.0":
   version "1.99.0"
   resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.99.0.tgz#864ce3fefe03b258c430e31e6672b422426821f7"
   integrity sha512-QZYQ2T1z6xWisoyALPq25i/QZTsRlM02BABtAsfaQ1p8wX4SdTfxrKTRue/ZZqrhNVh5oL7T/DUFiTS9DRgxow==

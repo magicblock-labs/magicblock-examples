@@ -2,7 +2,7 @@ use crate::processor::{
     process_callback_roll_dice, process_callback_undelegate_player, process_delegate_player,
     process_initialize, process_roll_dice, process_undelegate_player,
 };
-use core::{mem::MaybeUninit, slice::from_raw_parts};
+use core::{mem::MaybeUninit, slice::from_raw_parts_mut};
 use pinocchio::{
     entrypoint::deserialize, error::ProgramError, no_allocator, nostd_panic_handler, AccountView,
     Address, ProgramResult, MAX_TX_ACCOUNTS, SUCCESS,
@@ -66,7 +66,7 @@ pub unsafe extern "C" fn entrypoint(input: *mut u8) -> u64 {
 
     match process_instruction(
         program_id,
-        from_raw_parts(accounts.as_ptr() as _, count),
+        from_raw_parts_mut(accounts.as_mut_ptr() as _, count),
         instruction_data,
     ) {
         Ok(()) => SUCCESS,
@@ -85,7 +85,7 @@ fn log_error(_error: &ProgramError) {
 #[inline(always)]
 pub fn process_instruction(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     instruction_data: &[u8],
 ) -> ProgramResult {
     if instruction_data.len() < 8 {

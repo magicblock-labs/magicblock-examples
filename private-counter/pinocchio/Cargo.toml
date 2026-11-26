@@ -10,8 +10,8 @@ crate-type = ["cdylib"]
 logging = []
 
 [dependencies]
-pinocchio = { version = "0.10.1", features = ["cpi", "copy"] }
+pinocchio = { version = "0.11", features = ["cpi", "copy"] }
 pinocchio-log = { version = "0.5.1" }
-pinocchio-system = { version = "0.5" }
+pinocchio-system = { version = "0.6" }
 solana-address = { version = "2.6", features = ["syscalls"] }
-ephemeral-rollups-pinocchio = { git = "https://github.com/magicblock-labs/ephemeral-rollups-sdk.git", rev = "d32189fea8b4ae48cbae1645dd26595c66b28edb" }
+ephemeral-rollups-pinocchio = { version = "0.18.0" }
