@@ -10,7 +10,7 @@ publish = false
 anchor-counter-session = { path = "../programs/anchor-counter-session", features = ["no-entrypoint"] }
 anchor-lang = "=1.0.2"
 ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor"] }
-magicsvm = "0.3.0"
+magicsvm = "0.3.1"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 session-keys = { version = "3.1.1", features = ["no-entrypoint"] }
 solana-address = "~2.6.1"

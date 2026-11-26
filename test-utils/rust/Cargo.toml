@@ -14,7 +14,7 @@ anchor = ["dep:anchor-lang", "sdk", "ephemeral-rollups-sdk/anchor"]
 [dependencies]
 anchor-lang = { version = "=1.0.2", optional = true }
 ephemeral-rollups-sdk = { version = "0.16.2", optional = true }
-magicsvm = "0.3.0"
+magicsvm = "0.3.1"
 solana-address = "~2.6.1"
 solana-hash = "~4.5.0"
 solana-instruction = { version = "~3.4.0", features = ["bincode"] }

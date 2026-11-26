@@ -9,7 +9,7 @@ publish = false
 [dev-dependencies]
 anchor-lang = "=1.0.2"
 crank-counter = { path = "../programs/crank-counter", features = ["no-entrypoint"] }
-magicsvm = "0.3.0"
+magicsvm = "0.3.1"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 solana-address = "~2.6.1"
 solana-clock = "3"
