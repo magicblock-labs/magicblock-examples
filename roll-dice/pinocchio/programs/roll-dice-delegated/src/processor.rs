@@ -20,7 +20,7 @@ use crate::state::Player;
 const INTENT_BUNDLE_SIZE: usize = 512;
 
 /// Create and initialize the counter PDA for the initializer.
-pub fn process_initialize(program_id: &Address, accounts: &[AccountView]) -> ProgramResult {
+pub fn process_initialize(program_id: &Address, accounts: &mut [AccountView]) -> ProgramResult {
     let [payer_account, player_account, _system_program] = accounts else {
         return Err(ProgramError::NotEnoughAccountKeys);
     };
@@ -60,7 +60,7 @@ pub fn process_initialize(program_id: &Address, accounts: &[AccountView]) -> Pro
 /// Increase the counter PDA by the requested amount.
 pub fn process_roll_dice(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     client_seed: u8,
 ) -> ProgramResult {
     let [payer, player, oracle_queue, program_identity, vrf_program, slot_hashes, system_program] =
@@ -112,7 +112,7 @@ pub fn process_roll_dice(
 /// Delegate the player account to the delegation program.
 pub fn process_callback_roll_dice(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     randomness: [u8; 32],
     client_seed: u8,
 ) -> ProgramResult {
@@ -142,7 +142,7 @@ pub fn process_callback_roll_dice(
     Ok(())
 }
 
-pub fn process_delegate_player(program_id: &Address, accounts: &[AccountView]) -> ProgramResult {
+pub fn process_delegate_player(program_id: &Address, accounts: &mut [AccountView]) -> ProgramResult {
     let [payer, player, owner_program, buffer_acc, delegation_record, delegation_metadata, system_program, _delegation_program, validator] =
         accounts
     else {
@@ -174,7 +174,7 @@ pub fn process_delegate_player(program_id: &Address, accounts: &[AccountView]) -
     Ok(())
 }
 
-pub fn process_undelegate_player(program_id: &Address, accounts: &[AccountView]) -> ProgramResult {
+pub fn process_undelegate_player(program_id: &Address, accounts: &mut [AccountView]) -> ProgramResult {
     let [payer, player, magic_context, magic_program] = accounts else {
         return Err(ProgramError::NotEnoughAccountKeys);
     };
@@ -192,7 +192,7 @@ pub fn process_undelegate_player(program_id: &Address, accounts: &[AccountView])
 
 pub fn process_callback_undelegate_player(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     ix_data: &[u8],
 ) -> ProgramResult {
     let [delegated_acc, buffer_acc, payer, _system_program, ..] = accounts else {

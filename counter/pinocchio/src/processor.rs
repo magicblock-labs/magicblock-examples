@@ -44,7 +44,7 @@ fn counter_address_from_bump(
 /// Create and initialize the counter PDA for the initializer.
 pub fn process_initialize_counter(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     bump: u8,
 ) -> ProgramResult {
     let [initializer_account, counter_account, _system_program] = accounts else {
@@ -90,7 +90,7 @@ pub fn process_initialize_counter(
 /// Increase the counter PDA by the requested amount.
 pub fn process_increase_counter(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     bump: u8,
     increase_by: u64,
 ) -> ProgramResult {
@@ -117,7 +117,7 @@ pub fn process_increase_counter(
 /// Delegate the counter PDA to the delegation program.
 pub fn process_delegate(
     _program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     bump: u8,
 ) -> ProgramResult {
     let [initializer, pda_to_delegate, owner_program, delegation_buffer, delegation_record, delegation_metadata, _delegation_program, system_program, rest @ ..] =
@@ -142,14 +142,14 @@ pub fn process_delegate(
     }
 
     delegate_account(
-        &[
-            initializer,
-            pda_to_delegate,
-            owner_program,
-            delegation_buffer,
-            delegation_record,
-            delegation_metadata,
-            system_program,
+        &mut [
+            *initializer,
+            *pda_to_delegate,
+            *owner_program,
+            *delegation_buffer,
+            *delegation_record,
+            *delegation_metadata,
+            *system_program,
         ],
         seeds,
         bump,
@@ -160,7 +160,7 @@ pub fn process_delegate(
 }
 
 /// Commit the counter PDA state to the base layer.
-pub fn process_commit(_program_id: &Address, accounts: &[AccountView]) -> ProgramResult {
+pub fn process_commit(_program_id: &Address, accounts: &mut [AccountView]) -> ProgramResult {
     let [initializer, counter_account, magic_program, magic_context] = accounts else {
         return Err(ProgramError::NotEnoughAccountKeys);
     };
@@ -180,7 +180,7 @@ pub fn process_commit(_program_id: &Address, accounts: &[AccountView]) -> Progra
 /// Commit the counter PDA state and undelegate it.
 pub fn process_commit_and_undelegate(
     _program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
 ) -> ProgramResult {
     let [initializer, counter_account, magic_program, magic_context] = accounts else {
         return Err(ProgramError::NotEnoughAccountKeys);
@@ -201,7 +201,7 @@ pub fn process_commit_and_undelegate(
 /// Increment the counter PDA and commit in a single instruction.
 pub fn process_increment_commit(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     bump: u8,
     increase_by: u64,
 ) -> ProgramResult {
@@ -215,9 +215,11 @@ pub fn process_increment_commit(
         return Err(ProgramError::InvalidSeeds);
     }
 
-    let mut data = counter_account.try_borrow_mut()?;
-    let counter_data = Counter::load_mut(&mut data)?;
-    counter_data.count += increase_by;
+    {
+        let mut data = counter_account.try_borrow_mut()?;
+        let counter_data = Counter::load_mut(&mut data)?;
+        counter_data.count += increase_by;
+    }
 
     if !initializer.is_signer() {
         return Err(ProgramError::MissingRequiredSignature);
@@ -234,7 +236,7 @@ pub fn process_increment_commit(
 /// Increment the counter PDA and commit+undelegate in a single instruction.
 pub fn process_increment_undelegate(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     bump: u8,
     increase_by: u64,
 ) -> ProgramResult {
@@ -248,9 +250,11 @@ pub fn process_increment_undelegate(
         return Err(ProgramError::InvalidSeeds);
     }
 
-    let mut data = counter_account.try_borrow_mut()?;
-    let counter_data = Counter::load_mut(&mut data)?;
-    counter_data.count += increase_by;
+    {
+        let mut data = counter_account.try_borrow_mut()?;
+        let counter_data = Counter::load_mut(&mut data)?;
+        counter_data.count += increase_by;
+    }
 
     if !initializer.is_signer() {
         return Err(ProgramError::MissingRequiredSignature);
@@ -267,7 +271,7 @@ pub fn process_increment_undelegate(
 /// Handle the callback emitted by the delegation program on undelegation.
 pub fn process_undelegation_callback(
     program_id: &Address,
-    accounts: &[AccountView],
+    accounts: &mut [AccountView],
     ix_data: &[u8],
 ) -> ProgramResult {
     let [delegated_acc, buffer_acc, payer, _system_program, ..] = accounts else {

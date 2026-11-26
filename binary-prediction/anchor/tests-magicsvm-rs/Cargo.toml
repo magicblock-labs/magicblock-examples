@@ -9,7 +9,7 @@ publish = false
 [dev-dependencies]
 anchor-lang = "=1.0.2"
 binary-prediction = { path = "../programs/binary-prediction", features = ["no-entrypoint"] }
-ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor"] }
+ephemeral-rollups-sdk = { version = "0.18.0", features = ["anchor"] }
 magicsvm = "0.3.0"
 test-utils = { path = "../../../test-utils/rust", features = ["anchor"] }
 session-keys = { version = "=3.1.1", features = ["no-entrypoint"] }

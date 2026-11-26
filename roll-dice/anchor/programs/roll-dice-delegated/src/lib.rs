@@ -5,7 +5,8 @@ use ephemeral_rollups_sdk::{
     ephem::MagicIntentBundleBuilder,
     vrf::{
         self,
-        instructions::{create_request_scoped_randomness_ix, RequestRandomnessParams},
+        consts::program_identity_pubkey,
+        instructions::{create_request_randomness_ix_const, RequestRandomnessParams},
         types::SerializableAccountMeta,
     },
 };
@@ -13,6 +14,9 @@ use ephemeral_rollups_sdk::{
 declare_id!("3YAqv3GbcFzWwLcv1gZNjj2Nhr9FoxKkFaLDkfUCXXLj");
 
 pub const PLAYER_SEED: &[u8] = b"playerd2";
+
+/// This program's VRF identity PDA, derived at compile time.
+const PROGRAM_IDENTITY: Pubkey = program_identity_pubkey(&ID);
 
 #[ephemeral]
 #[program]
@@ -38,23 +42,26 @@ pub mod random_dice_delegated {
         client_seed: u8,
     ) -> Result<()> {
         msg!("Requesting randomness with client_seed={}", client_seed);
-        let ix = create_request_scoped_randomness_ix(RequestRandomnessParams {
-            payer: ctx.accounts.payer.key(),
-            oracle_queue: ctx.accounts.oracle_queue.key(),
-            callback_program_id: ID,
-            callback_discriminator: instruction::CallbackRollDiceSimple::DISCRIMINATOR.to_vec(),
-            caller_seed: [client_seed; 32],
-            accounts_metas: Some(vec![SerializableAccountMeta {
-                pubkey: ctx.accounts.player.key(),
-                is_signer: false,
-                is_writable: true,
-            }]),
-            // Echo client_seed forward — VRF appends these bytes after the
-            // `randomness` arg in the callback ix data, so the callback can
-            // read it back as a trailing u8 and log it for correlation.
-            callback_args: Some(vec![client_seed]),
-            ..Default::default()
-        });
+        let ix = create_request_randomness_ix_const(
+            RequestRandomnessParams {
+                payer: ctx.accounts.payer.key(),
+                oracle_queue: ctx.accounts.oracle_queue.key(),
+                callback_program_id: ID,
+                callback_discriminator: instruction::CallbackRollDiceSimple::DISCRIMINATOR.to_vec(),
+                caller_seed: [client_seed; 32],
+                accounts_metas: Some(vec![SerializableAccountMeta {
+                    pubkey: ctx.accounts.player.key(),
+                    is_signer: false,
+                    is_writable: true,
+                }]),
+                // Echo client_seed forward — VRF appends these bytes after the
+                // `randomness` arg in the callback ix data, so the callback can
+                // read it back as a trailing u8 and log it for correlation.
+                callback_args: Some(vec![client_seed]),
+                ..Default::default()
+            },
+            PROGRAM_IDENTITY,
+        );
         ctx.accounts
             .invoke_signed_vrf(&ctx.accounts.payer.to_account_info(), &ix)?;
         Ok(())
